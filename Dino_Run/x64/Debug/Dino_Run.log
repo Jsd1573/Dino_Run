@@ -1,4 +1,4 @@
 ﻿  Dino_Run.cpp
-C:\Users\Administrator\Desktop\Dino_Run\Dino_Run\Dino_Run.cpp(45,15): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\Administrator\Desktop\Dino_Run\Dino_Run\Dino_Run.cpp(45,18): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-  Dino_Run.vcxproj -> C:\Users\Administrator\Desktop\Dino_Run\Dino_Run\x64\Debug\Dino_Run.exe
+C:\Users\Administrator\Desktop\Dino_Run\Dino_Run\Dino_Run.cpp(55,16): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\Users\Administrator\Desktop\Dino_Run\Dino_Run\Dino_Run.cpp(55,19): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\Users\Administrator\Desktop\Dino_Run\Dino_Run\Dino_Run.cpp(69,11): error C3861: 'keyControl': 식별자를 찾을 수 없습니다.
