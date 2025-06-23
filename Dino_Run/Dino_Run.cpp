@@ -3,7 +3,6 @@
 #include <windows.h>
 #include <string.h>
 
-
 #define UP 0
 #define DOWN 1
 #define LEFT 2
@@ -11,6 +10,35 @@
 #define SUBMIT 4
 
 using namespace std;
+
+char tempmap[10][10];
+
+char map1[10][10] =
+{
+	{1,1,1,1,1,1,1,1,1,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,3,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,2,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,1,1,1,1,1,1,1,1,1}
+};
+char map2[10][10] =
+{
+	{1,1,1,1,1,1,1,1,1,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,3,0,0,0,0,3,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,2,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,3,0,0,0,0,1},
+	{1,1,1,1,1,1,1,1,1,1}
+};
 
 void HideCursor()
 {
@@ -71,7 +99,7 @@ void TitleDraw()
 
 }
 
-int  MenuDraw()
+int MenuDraw()
 {
 	int x = 34;
 	int y = 12;
@@ -139,72 +167,185 @@ void InfoDraw()
 
 }
 
-void MapDraw()
+void MapDraw(int *x, int *y)
 {
 	system("cls");
 
-	int map[5][5] =
-	{
-		{1,1,1,1,1},
-		{1,0,0,0,1},
-		{1,0,0,0,1},
-		{1,0,0,0,1},
-		{1,1,1,1,1}
-	};
+	int i, j; // 세로 가로
 
-	for (int i = 0; i < 5; i++)
+	for (i = 0; i < 10; i++)
 	{
-		for (int j = 0; j < 5; j++)
+		for (j = 0; j < 10; j++)
 		{
-			if (map[i][j] == 1)
+			char temp = tempmap[i][j];
+
+			if (temp == 0)  // 공백
+			{
+				cout << "  ";
+			}
+			else if (temp == 1)  // 벽
 			{
 				cout << "■";
 			}
-			else if (map[i][j] == 0)
+			else if (temp == 2)  // 플레이어
 			{
-				cout << "0";
+				cout << "☆";
+				*x = j+4;
+				*y = i;
+				
 			}
-			// cout << endl;
+			else if (temp == 3)  // 박스
+			{
+				cout << "□";
+			}
+			
 		}
 		cout << endl;
 	}
-	Sleep(3000);
+	// Sleep(3000);
 	
 }
 
+ void Move(int * x, int * y, int _x, int _y)
+ {
+	 gotoxy(*x, *y);
+	 printf("  ");
 
+	 gotoxy(*x +_x, *y + _y);
+	 printf("☆");
 
+	 *x = *x + _x;
+	 *y = *y + _y;
+ }
+
+int maplistdraw()
+{
+	int x = 34;
+	int y = 12;
+
+	system("cls");
+	printf("\n\n\n\n\n\n\n\n\n");
+	printf("                                 [맵선택] \n\n");
+
+	gotoxy(x - 2, y);
+	printf("> 1 단계");
+	gotoxy(x, y + 1);
+	printf("2 단계");
+	gotoxy(x, y + 2);
+	printf(" 뒤로");
+
+	while (1)
+	{
+		int n = KeyControl();
+		switch (n)
+		{
+			case UP:
+			{
+				if (y > 12)
+				{
+				gotoxy(x - 2, y);
+				printf(" ");
+				gotoxy(x - 2, --y);
+				printf(">");
+				}
+				break;
+			}
+			case DOWN:
+			{
+				if (y < 14)
+				{
+					gotoxy(x - 2, y);
+					printf(" ");
+					gotoxy(x - 2, ++y);
+					printf(">");
+				}
+				break;
+			}
+			case SUBMIT:
+			{
+				return y - 12;
+			}
+
+		}
+	}
+}
+
+void Gloop(int mapcode)
+{
+	int x = 0;
+	int y = 0;
+
+	int playing = 1;
+
+	if (mapcode == 0)
+	{
+		memcpy(tempmap, map1, sizeof(tempmap));
+	}
+	else if (mapcode == 1)
+	{
+		memcpy(tempmap, map2, sizeof(tempmap));
+	}
+
+	MapDraw(&x,&y);
+
+	while (playing)
+	{
+		switch (KeyControl())
+		{
+			case UP: Move(&x, &y, 0, -1 );
+			break;
+
+			case DOWN : Move(&x, &y,0, +1);
+			break;
+
+			case LEFT : Move(&x, &y,-2 , 0);
+			break;
+
+			case RIGHT : Move(&x, &y,+2, 0);
+			break;
+		}
+	}
+
+}
 
 
 int main()
 {
 	 HideCursor();
 	 
-	//  while (1)
-	//  {
-	//  	TitleDraw();
-	//  
-	//  	int menucode = MenuDraw();
-	//  	
-	//  	if (menucode == 0)
-	//  	{
-	// 		MapDraw();
-	//  	}
-	//  	else if (menucode == 1)
-	//  	{
-	//  		InfoDraw();
-	//  	}
-	//  	else if (menucode == 2)
-	//  	{
-	//  		return 0;		// return문의 기능에는 값을 반환하는것도 있지만 자신이 속해있는 함수를 종료시키는 기능도 있습니다.
-	//  	}
-	//  	system("cls");
-	//  
-	//  }
-	
-	 printf("■■■■■■■■■■■■■■■■■■■■\n");
-	 printf("■■■■■■■■■■■■■■■■■■■■\n");
+	  while (1)
+	  {
+	  	TitleDraw();
+	  
+	  	int menucode = MenuDraw();
+	  	
+	  	if (menucode == 0)
+	  	{
+			int n = maplistdraw();
+			if (n == 0)
+			{
+				Gloop(0);
+			}
+			else if (n == 1)
+			{
+				Gloop(1);
+			}
+	 		// MapDraw();
+			// Move();
 
+	  	}
+	  	else if (menucode == 1)
+	  	{
+	  		InfoDraw();
+	  	}
+	  	else if (menucode == 2)
+	  	{
+	  		return 0;		// return문의 기능에는 값을 반환하는것도 있지만 자신이 속해있는 함수를 종료시키는 기능도 있습니다.
+	  	}
+	  	system("cls");
+	  
+	  }
+	
 	return 0;
 }
 
