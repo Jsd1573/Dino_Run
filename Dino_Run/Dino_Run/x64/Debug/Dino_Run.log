@@ -1,5 +1,5 @@
 ﻿  Dino_Run.cpp
-C:\Users\longl\OneDrive\문서\GitHub\Dino_Run\Dino_Run\Dino_Run.cpp(26,16): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\longl\OneDrive\문서\GitHub\Dino_Run\Dino_Run\Dino_Run.cpp(26,19): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\longl\OneDrive\문서\GitHub\Dino_Run\Dino_Run\Dino_Run.cpp(55,1): warning C4715: 'KeyControl': 모든 제어 경로에서 값을 반환하지는 않습니다.
+C:\Users\longl\OneDrive\문서\GitHub\Dino_Run\Dino_Run\Dino_Run.cpp(54,16): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\Users\longl\OneDrive\문서\GitHub\Dino_Run\Dino_Run\Dino_Run.cpp(54,19): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\Users\longl\OneDrive\문서\GitHub\Dino_Run\Dino_Run\Dino_Run.cpp(83,1): warning C4715: 'KeyControl': 모든 제어 경로에서 값을 반환하지는 않습니다.
   Dino_Run.vcxproj -> C:\Users\longl\OneDrive\문서\GitHub\Dino_Run\Dino_Run\x64\Debug\Dino_Run.exe
