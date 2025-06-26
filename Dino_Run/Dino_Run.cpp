@@ -185,18 +185,18 @@ void MapDraw(int *x, int *y)
 			}
 			else if (temp == '1')  // 벽
 			{
-				cout << "■";
+				cout << "■ ";
 			}
-			else if (temp == '2')  // 플레이어
+			else if (temp == '2')  // 플레이어 
 			{
-				cout << "☆";
-				*x = j+4;
+				cout << "☆ ";
+				*x = j;
 				*y = i;
 				
 			}
 			else if (temp == '3')  // 박스
 			{
-				cout << "□";
+				cout << "□ ";
 			}
 			
 		}
@@ -331,6 +331,7 @@ int main()
 	  	if (menucode == 0)
 	  	{
 			int n = maplistdraw();
+
 			if (n == 0)
 			{
 				Gloop(0);
