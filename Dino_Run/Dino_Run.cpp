@@ -53,18 +53,33 @@ void TitleDraw()
 {
     cout << endl;
     cout << endl;
-    cout << endl;
-    printf("	###    #  ##     #     ##         ####     #    #  ##     # \n");
-    printf("	#  #   #  # #    #    #  #        #   #    #    #  # #    # \n");
-    printf("	#   #  #  #  #   #   #    #       #    #   #    #  #  #   # \n");
-    printf("	#   #  #  #   #  #   #    #       #####    #    #  #   #  # \n");
-    printf("	#  #   #  #    # #    #  #        #    #   #    #  #    # # \n");
-    printf("	###    #  #     ##     ##         #     #    ##    #     ## \n");
+    cout << endl;        
+    printf("	          ######  ####    ####    #    ####   ######\n");
+    printf("	          #      #       #       # #   #   #  #     \n");
+    printf("	          #      #      #        # #   #    # #     \n");
+    printf("	          ######  ####  #       #   #  #   #  ######\n");
+    printf("	          #           # #       #####  ####   #     \n");
+    printf("	          #           #  #     #     # #      #     \n");
+    printf("	          ######  ####    #### #     # #      ######\n");
     cout << endl;
     cout << endl;
     cout << endl;
 
 }
+
+class Setting
+{
+public :
+    void setConsleSize(int width, int height)
+    {
+        HWND console = GetConsoleWindow();
+        RECT r;
+        GetWindowRect(console, &r);
+        MoveWindow(console, r.left, r.top, width, height, TRUE);
+    }
+
+
+};
 
 
 
@@ -77,14 +92,14 @@ public:
     char map1[rows][cols + 1] =
     {
         "###############",
-        "#      #     E#",
+        "#P     #     E#",
         "# ### ##### ###",
         "#   #     #   #",
         "### # ### ### #",
         "#   #   #     #",
         "# ##### ##### #",
         "#     #     # #",
-        "#A### ##### # #",
+        "##K## ##### # #",
         "###############"
     };
 
@@ -94,24 +109,24 @@ public:
     char map2[rows2][cols2 + 1] =
     {
         "#########################",
-        "#      #     E###########",
-        "# ### ##### #############",
-        "#   #     #   ###########",
-        "##### ### ### ###########",
-        "#   #   #     ###########",
-        "# ##### ##### ###########",
-        "#     #     # ###########",
-        "# ### ##### # ###########",
-        "#########################",
-        "#########################",
-        "#########################",
-        "#########################",
-        "#########################",
-        "#########################",
-        "#########################",
-        "#########################",
-        "#########################",
-        "#########################",
+        "#P      #               #",
+        "# ### ##### ###### #### #",
+        "#   # #       #### ## # #",
+        "### #  #### # #       ###",
+        "#   ## ##  ## ##### #   #",
+        "# ####    #      ##  ## #",
+        "#    ###### ######### # #",
+        "####     # K ##       # #",
+        "###  ### ## ##  ####### #",
+        "#     ##  #####    ##   #",
+        "## ## ## ##     ## ## ###",
+        "##  #    #####   ####   #",
+        "###  ###    ## #     ## #",
+        "#   ##### # ## ##### #  #",
+        "# ##  #   #      #     E#",
+        "# ###### ###   # ### # ##",
+        "#  ##     ## ###   # ## #",
+        "##    ###    #####      #",
         "#########################"
     };
 
@@ -145,24 +160,33 @@ public:
     int x = 1;              //Player 시작 지점
     int y = 1;
 
+    void Reset()
+    {
+        x = 1;
+        y = 1;
+    }
+
     void draw(Maze& maze, int x)
     {
         switch (x)
         {
         case 1: maze.map1[y][x] = 'p';
             gotoxy(x, y);
-            cout << 'p';
+            cout << 'P';
             break;
 
         case 2: maze.map2[y][x] = 'p';
+            x = 1;
+            y = 1;
             gotoxy(x, y);
-            cout << 'p';
+            cout << 'P';
             break;
         }
     }
 
     int move(Maze& maze, int dx, int dy, int s)         // Maze 클래스의 maze 객체를 매개변수로 넣음으로써 maze객체의 정보를 한꺼번에 함수에 전달
     {
+
         int newX = x + dx;
         int newY = y + dy;
         char next;
@@ -176,7 +200,7 @@ public:
                 return 0;           // if문은 조건이 참일경우 에만 내용을 실행  조건이 거짓일 경우 if문은 건너뛰고 다음 문장 실행
             }
 
-            if (next == 'A')
+            if (next == 'K')
             {
                 gotoxy(x, y); cout << ' ';
                 maze.map1[y][x] = ' ';
@@ -200,14 +224,21 @@ public:
             maze.map1[y][x] = 'P';
             gotoxy(x, y); cout << 'P';
 
+            break;
+
+
+
+
         case 2: next = maze.map2[newY][newX];
+             
+            
 
             if (next == '#')
             {
                 return 0;           // if문은 조건이 참일경우 에만 내용을 실행  조건이 거짓일 경우 if문은 건너뛰고 다음 문장 실행
             }
 
-            if (next == 'A')
+            if (next == 'K')
             {
                 gotoxy(x, y); cout << ' ';
                 maze.map2[y][x] = ' ';
@@ -230,6 +261,8 @@ public:
             y = newY;
             maze.map2[y][x] = 'P';
             gotoxy(x, y); cout << 'P';
+
+            break;
         }
 
 
@@ -309,6 +342,7 @@ public:
 class Game
 {
 public:
+    Setting setting;
     Maze maze;
     Player player;
     Menu menu;
@@ -316,6 +350,7 @@ public:
 
     void run()
     {
+        setting.setConsleSize(700, 600);
 
         while (1)
         {
@@ -337,13 +372,56 @@ public:
         }
         // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        system("cls");              // 기존에 출력되어 있던 타이틀이나 메뉴 를 전부 정리해주기위해 사용
-        maze.draw(2);            // maze객체의 draw함수를 호출
-        player.draw(maze, 2);      // player객체의 draw함수를 호출하면서 maze객체를 인수로 전달
+         system("cls");              // 기존에 출력되어 있던 타이틀이나 메뉴 를 전부 정리해주기위해 사용
+         maze.draw(1);            // maze객체의 draw함수를 호출
+         player.draw(maze, 1);      // player객체의 draw함수를 호출하면서 maze객체를 인수로 전달
 
         int win = 0;
 
         int clear = 0;
+
+        int stage = 1;
+
+        while (running)
+        {
+            int input = Keycontrol();
+       
+       
+            switch (input)
+            {
+            case UP: win = player.move(maze, 0, -1, stage); break;
+            case DOWN: win = player.move(maze, 0, 1, stage);  break;
+            case LEFT: win = player.move(maze, -1, 0, stage); break;
+            case RIGHT: win = player.move(maze, 1, 0, stage);  break;
+            }
+       
+            if (win == 1)
+            {
+                gotoxy(0, Maze :: rows + 2);
+                cout << "열쇠 획득"; 
+                clear++;
+                
+            }
+       
+            if (win == 2 && clear == 1)
+            {
+                system("cls");
+                gotoxy(0,0);
+                cout <<"다음 스테이지";
+                stage++;
+                Sleep(1000
+                );
+                break;
+            }
+           
+            
+        }
+
+        system("cls");
+        maze.draw(2);
+        player.draw(maze, 2);
+        player.Reset();
+
 
         while (running)
         {
@@ -352,32 +430,30 @@ public:
 
             switch (input)
             {
-            case UP: win = player.move(maze, 0, -1, 2); break;
-            case DOWN: win = player.move(maze, 0, 1, 2);  break;
-            case LEFT: win = player.move(maze, -1, 0, 2); break;
-            case RIGHT: win = player.move(maze, 1, 0, 2);  break;
+            case UP: win = player.move(maze, 0, -1, stage); break;
+            case DOWN: win = player.move(maze, 0, 1, stage);  break;
+            case LEFT: win = player.move(maze, -1, 0, stage); break;
+            case RIGHT: win = player.move(maze, 1, 0, stage);  break;
             }
 
             if (win == 1)
             {
-                gotoxy(0, Maze::rows + 3);
+                gotoxy(0, Maze::rows2 + 2);
                 cout << "열쇠 획득";
-                Sleep(50);
-
                 clear++;
             }
 
-            if (win == 2 && clear == 1)
+            if (win == 2 && clear == 2)
             {
                 system("cls");
-                gotoxy(0, Maze::rows + 2);
-                cout << " 탈출 성공! ";
+                gotoxy(0,0);
+                cout <<"탈출 성공!";
                 running = 0;
             }
 
         }
 
-        gotoxy(0, Maze::rows + 4);
+       // gotoxy(0, Maze::rows + 4);
     }
 };
 
