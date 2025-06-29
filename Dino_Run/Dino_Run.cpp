@@ -184,7 +184,7 @@ public:
         }
     }
 
-    int move(Maze& maze, int dx, int dy, int s)         // Maze 클래스의 maze 객체를 매개변수로 넣음으로써 maze객체의 정보를 한꺼번에 함수에 전달
+    int move(Maze& maze, int dx, int dy, int s)                                                                      // Maze 클래스의 maze 객체를 매개변수로 넣음으로써 maze객체의 정보를 한꺼번에 함수에 전달
     {
 
         int newX = x + dx;
@@ -197,7 +197,7 @@ public:
 
             if (next == '#')
             {
-                return 0;           // if문은 조건이 참일경우 에만 내용을 실행  조건이 거짓일 경우 if문은 건너뛰고 다음 문장 실행
+                return 0;                                                                                                                // if문은 조건이 참일경우 에만 내용을 실행  조건이 거짓일 경우 if문은 건너뛰고 다음 문장 실행
             }
 
             if (next == 'K')
@@ -359,22 +359,22 @@ public:
 
             if (menucode == 0)  // 게임 시작
             {
-                break;      // break 문은 반복문(for, while등등)이나 switch문을 즉시 종료시키는데 사용되는 제어문
-            }                 // break 가 실행되면 ,해당 블록을 빠져나와 다음 코드로 흐름이 이동, break 문은 가장 가까운 반복문이나 switch문을 탈출
+                break;                                                                           // break 문은 반복문(for, while등등)이나 switch문을 즉시 종료시키는데 사용되는 제어문
+            }                                                                                        // break 가 실행되면 ,해당 블록을 빠져나와 다음 코드로 흐름이 이동, break 문은 가장 가까운 반복문이나 switch문을 탈출
             else if (menucode == 1)     // 게임 정보
             {
                 menu.InfoDraw();
             }
             else if (menucode == 2)     // 게임 종료
             {
-                return;         // return문의 기능에는 값을 반환하는것도 있지만 자신이 속해있는 '함수를' 종료시키는 기능도 있습니다.
+                return;                                                                                     // return문의 기능에는 값을 반환하는것도 있지만 자신이 속해있는 '함수를' 종료시키는 기능도 있습니다.
             }
         }
         // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-         system("cls");              // 기존에 출력되어 있던 타이틀이나 메뉴 를 전부 정리해주기위해 사용
-         maze.draw(1);            // maze객체의 draw함수를 호출
-         player.draw(maze, 1);      // player객체의 draw함수를 호출하면서 maze객체를 인수로 전달
+         system("cls");                                              // 기존에 출력되어 있던 타이틀이나 메뉴 를 전부 정리해주기위해 사용
+         maze.draw(1);                                               // maze객체의 draw함수를 호출
+         player.draw(maze, 1);                                       // player객체의 draw함수를 호출하면서 maze객체를 인수로 전달
 
         int win = 0;
 
@@ -393,9 +393,10 @@ public:
             case DOWN: win = player.move(maze, 0, 1, stage);  break;
             case LEFT: win = player.move(maze, -1, 0, stage); break;
             case RIGHT: win = player.move(maze, 1, 0, stage);  break;
+            
             }
        
-            if (win == 1)
+            if (win == 1)           // 열쇠 획득
             {
                 gotoxy(0, Maze :: rows + 2);
                 cout << "열쇠 획득"; 
@@ -403,7 +404,7 @@ public:
                 
             }
        
-            if (win == 2 && clear == 1)
+            if (win == 2 && clear == 1)     // 탈출 로직
             {
                 system("cls");
                 gotoxy(0,0);
