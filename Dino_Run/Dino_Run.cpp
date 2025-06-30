@@ -76,8 +76,20 @@ public :
         RECT r;
         GetWindowRect(console, &r);
         MoveWindow(console, r.left, r.top, width, height, TRUE);
-    }
 
+
+    }
+    
+    void hidecoursor()
+    {
+
+        HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+        CONSOLE_CURSOR_INFO cursorInfo;
+
+        GetConsoleCursorInfo(consoleHandle, &cursorInfo);
+        cursorInfo.bVisible = FALSE;  // 커서를 숨김
+        SetConsoleCursorInfo(consoleHandle, &cursorInfo);
+    }
 
 };
 
@@ -279,7 +291,7 @@ public:
         system("cls");
         printf("\n\n\n\n\n\n");
         printf("                                   [조작법]\n\n");
-        printf("                              이동 : W, A, S, D\n");
+        printf("                              이동 : ↑, ↓, ←, →\n");
         printf("                              선택 : 스페이스바 \n\n");
         printf("                  스페이스바를 누르면 메인화면으로 이동합니다.");
 
@@ -351,6 +363,7 @@ public:
     void run()
     {
         setting.setConsleSize(700, 600);
+        setting.hidecoursor();
 
         while (1)
         {
